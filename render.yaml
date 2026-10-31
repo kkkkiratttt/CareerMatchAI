@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: careermatch-ai
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: python -c "import base64,lzma,tarfile,io,pathlib; z=base64.b64decode(b''.join(p.read_bytes() for p in sorted(pathlib.Path('source_parts').glob('*.b64')))); tarfile.open(fileobj=io.BytesIO(lzma.decompress(z))).extractall('.')" && pip install -r CareerMatchAI_RenderApp/requirements.txt
+    startCommand: cd CareerMatchAI_RenderApp && gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 600
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
