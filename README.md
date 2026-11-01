@@ -1,6 +1,6 @@
 # CareerMatch AI
 
-A standalone resume-first job discovery web app. This repository is separate from Atlas RAG Assistant.
+A standalone resume-first job discovery web app.
 
 ## Features
 
